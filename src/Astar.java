@@ -16,14 +16,15 @@ public class Astar extends FindPath {
      * @return state gaol/
      */
     @Override
-    public state findPath() {
+    public State findPath() {
         place();
-        Hashtable<state, state> open = new Hashtable<state, state>();
-        Hashtable<state, state> close = new Hashtable<state, state>();
-        state start = new state(initialstate, null, 0, 0, 0, "", "", this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        Hashtable<State, State> open = new Hashtable<>();
+        Hashtable<State, State> close = new Hashtable<>();
+        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
 
-        myComper compare = new myComper();
-        PriorityQueue<state> pq = new PriorityQueue(compare);
+
+        PriorityQueue<State> pq = new PriorityQueue();
+
         pq.add(start);
         open.put(start, start);
         while (!pq.isEmpty()) {
@@ -31,23 +32,23 @@ public class Astar extends FindPath {
                 System.out.println("open\n" + pq);
             }
 
-            state n = pq.poll();
+            State n = pq.poll();
             if (Arrays.deepEquals(goal, n.getGreed())) {
                 String str = n.getPath();
                 n.setPath(str.substring(0, str.length() - 1));
                 return n;
             }
             close.put(n, n);
-            Queue<state> opertion = n.order();
+            Queue<State> opertion = n.getSuccessors();
             while (!opertion.isEmpty()) {
-                state son = opertion.poll();
-                Heuristic(son);
+                State son = opertion.poll();
+                heuristic(son);
 
 
                 if (close.get(son) == null && open.get(son) == null) {
                     open.put(son, son);
                     pq.add(son);
-                } else if (open.get(son).getWight() > son.getWight()) {
+                } else if (open.get(son).getHeuristic() > son.getHeuristic()) {
                     open.get(son).setPrice(son.getPrice());
                     open.get(son).setPath(son.getPath());
                 }

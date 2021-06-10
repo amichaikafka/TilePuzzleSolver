@@ -11,46 +11,45 @@ public class DFBnB extends FindPath {
      * @return state gaol.
      */
     @Override
-    public state findPath() {
+    public State findPath() {
         place();
-        Hashtable<state, state> open = new Hashtable<state, state>();
-        LinkedList<state> stack = new LinkedList<>();
-        myComper compare = new myComper();
-        state start = new state(initialstate, null, 0, 0, 0, "", "", this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        Hashtable<State, State> open = new Hashtable<>();
+        LinkedList<State> stack = new LinkedList<>();
+        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
         stack.push(start);
         open.put(start, start);
         double t = Double.MAX_VALUE;
-        state result = null;
+        State result = null;
         while (!stack.isEmpty()) {
             if (withOpen) {
                 System.out.println("open\n" + stack);
             }
-            state n = stack.pop();
+            State n = stack.pop();
             if (n.isOut()) {
                 open.remove(n, n);
             } else {
                 n.setOut(true);
                 stack.push(n);
 
-                Queue<state> opertion = n.order();
-                LinkedList<state> remains = new LinkedList<>();
-                PriorityQueue<state> N = new PriorityQueue(compare);
+                Queue<State> opertion = n.getSuccessors();
+                LinkedList<State> remains = new LinkedList<>();
+                PriorityQueue<State> N = new PriorityQueue();
                 while (!opertion.isEmpty()) {
-                    state son = opertion.poll();
-                    Heuristic(son);
+                    State son = opertion.poll();
+                    heuristic(son);
 
                     N.add(son);
                 }
 
                 while (!N.isEmpty()) {
-                    state son = N.poll();
+                    State son = N.poll();
 
-                    if (son.getWight() >= t) {
+                    if (son.getHeuristic() >= t) {
                         N.clear();
                     } else if (open.get(son) != null && open.get(son).isOut()) {
                         continue;
                     } else if (open.get(son) != null && !open.get(son).isOut()) {
-                        if (open.get(son).getWight() <= son.getWight()) {
+                        if (open.get(son).getHeuristic() <= son.getHeuristic()) {
                             continue;
                         } else {
                             stack.remove(open.get(son));
@@ -58,7 +57,7 @@ public class DFBnB extends FindPath {
                             remains.addFirst(son);
                         }
                     } else if (Arrays.deepEquals(son.getGreed(), goal)) {
-                        t = son.getWight();
+                        t = son.getHeuristic();
                         result = son;
                         N.clear();
                     } else if (open.get(son) == null) {
@@ -67,7 +66,7 @@ public class DFBnB extends FindPath {
                 }
 
                 while (!remains.isEmpty()) {
-                    state son = remains.poll();
+                    State son = remains.poll();
                     stack.push(son);
                     open.put(son, son);
                 }

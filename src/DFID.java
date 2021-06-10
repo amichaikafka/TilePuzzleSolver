@@ -5,7 +5,7 @@ import java.util.Queue;
  * This class extends FindPath represents implementaion of DFID algorithm.
  */
 public class DFID extends FindPath {
-    private final state cutOff = new state();//cutoff state
+    private final PuzzleState cutOff = new PuzzleState();//cutoff state
 
     public DFID(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
         super(initialstate, goal, withTime, withOpen);
@@ -15,14 +15,13 @@ public class DFID extends FindPath {
      * @return state gaol.
      */
     @Override
-    public state findPath() {
-        state start = new state(initialstate, null, 0, 0, 0, "", "", this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
-
+    public State findPath() {
+        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
         for (int i = 1; i < Integer.MAX_VALUE; i++) {
-            Hashtable<state, state> open = new Hashtable<>();
-            state.NUM_OF_STATES = 1;
-            state res = Limited_DFS(start, i, open);
-            System.out.println(i);
+            Hashtable<State, State> open = new Hashtable<>();
+
+            State res = Limited_DFS(start, i, open);
+
             if (res != cutOff) {
                 if (res != null && res.getPath().length() > 0) {
                     String str = res.getPath();
@@ -34,7 +33,7 @@ public class DFID extends FindPath {
         return null;
     }
 
-    private state Limited_DFS(state n, int limit, Hashtable<state, state> open) {
+    private State Limited_DFS(State n, int limit, Hashtable<State, State> open) {
         if (Arrays.deepEquals(n.getGreed(), goal)) {
             return n;
         } else if (limit ==0) {
@@ -45,20 +44,20 @@ public class DFID extends FindPath {
             }
             updateEmpty(n.getEmpty());
             open.put(n, n);
-            Queue<state> opertion = n.order();
+            Queue<State> opertion = n.getSuccessors();
 
             boolean isCutOff = false;
 
             while (!opertion.isEmpty()) {
-                state son = opertion.poll();
+                State son = opertion.poll();
                 if (open.get(son) == null) {
 
-                    state res = Limited_DFS(son, limit-1, open);
+                    State res = Limited_DFS(son, limit-1, open);
                     if (res == cutOff) {
                         isCutOff = true;
                     } else if (res != null) {
 
-                        System.out.println(res);
+
                         return res;
                     }
                 }

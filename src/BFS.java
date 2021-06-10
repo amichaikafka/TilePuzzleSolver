@@ -15,26 +15,29 @@ public class BFS extends FindPath {
      * @return state gaol/
      */
     @Override
-    public state findPath() {
-        Queue<state> q = new LinkedList<state>();
-        Hashtable<state, state> open = new Hashtable<state, state>();
-        Hashtable<state, state> close = new Hashtable<state, state>();
-        state start = new state(initialstate, null, 0, 0, 0, "", "", this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+    public State findPath() {
+        Queue<State> q = new LinkedList<>();
+        Hashtable<State, State> open = new Hashtable<>();
+        Hashtable<State, State> close = new Hashtable<>();
+        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
         q.add(start);
         open.put(start, start);
+        if (Arrays.deepEquals(start.getGreed(), goal)) {
+            return start;
+        }
         while (!q.isEmpty()) {
             if (withOpen) {
                 System.out.println("open\n" + q);
             }
-            state n = q.poll();
-            if (Arrays.deepEquals(n.getGreed(), goal)) {
-                return n;
-            }
+            State n = q.poll();
+//            if (Arrays.deepEquals(n.getGreed(), goal)) {
+//                return n;
+//            }
             updateEmpty(n.getEmpty());
             close.put(n, n);
-            Queue<state> opertion = n.order();
+            Queue<State> opertion = n.getSuccessors();
             while (!opertion.isEmpty()) {
-                state son = opertion.poll();
+                State son = opertion.poll();
                 if (close.get(son) != null || open.get(son) != null) {
                     continue;
                 }

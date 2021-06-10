@@ -78,7 +78,7 @@ public abstract class FindPath {
         this.y2_empty = pos[3];
     }
 
-    /***
+    /**
      * return the Manhattan distance between two point.
      * @param x1
      * @param y1
@@ -86,7 +86,7 @@ public abstract class FindPath {
      * @param y2
      * @return
      */
-    private double Manhattan(int x1, int y1, int x2, int y2) {
+    private double manhattan(int x1, int y1, int x2, int y2) {
         int price = 5;
         double m = (Math.abs(x1 - x2) + Math.abs(y1 - y2));
         if (x2_empty != -1)
@@ -102,7 +102,7 @@ public abstract class FindPath {
      * sum(Manhattan(n))+2xlinear conflict(n)
      * @param n
      */
-    protected void Heuristic(state n) {
+    protected void heuristic(State n) {
 
         int linar = 0;
         double sum = 0, avg;
@@ -110,7 +110,7 @@ public abstract class FindPath {
         for (int i = 0; i < curr.length; i++) {
             for (int j = 0; j < curr[0].length; j++) {
                 int[] index = indexGaol.get(curr[i][j]);
-                double m = Manhattan(i, j, index[0], index[1]);
+                double m = manhattan(i, j, index[0], index[1]);
                 if (m != 0) {
                     if (!curr[i][j].equals(EMPTY)) {
                         sum += m;
@@ -120,7 +120,7 @@ public abstract class FindPath {
             }
         }
         linar = findConflict(curr);
-        n.setWight(n.getPrice() + sum + 2 * linar);
+        n.setHeuristic(n.getPrice() + sum + 2 * linar);
     }
 
     /***
@@ -194,23 +194,11 @@ public abstract class FindPath {
         }
     }
 
-    /***
-     * This class represents a comparator for two states.
-     */
-    protected class myComper implements Comparator<state> {
 
-        @Override
-        public int compare(state o1, state o2) {
-            if (o1.getWight() == o2.getWight()) {
-                return Double.compare(o1.getId(), o2.getId());
-            }
-            return Double.compare(o1.getWight(), o2.getWight());
-        }
-    }
 
     /***
      * calculate the path from the initial state to the gaol state.
      * @return
      */
-    public abstract state findPath();
+    public abstract State findPath();
 }

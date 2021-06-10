@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class TilePuzzleSolver {
 
     private FindPath solver;
-    private state res;//contain the node with the solution
+    private State res;//contain the node with the solution
     private double time;
 
 
@@ -109,7 +109,7 @@ public class TilePuzzleSolver {
 
             if(res==null){
                 myWriter.append("no path\n");
-                myWriter.append("Num: ").append(String.valueOf(state.NUM_OF_STATES)).append("\n");
+                myWriter.append("Num: ").append(String.valueOf(PuzzleState.NUM_OF_STATES)).append("\n");
                 if(solver.isWithTime()){
                     myWriter.append("").append(String.valueOf(time)).append(" seconds\n");
                 }

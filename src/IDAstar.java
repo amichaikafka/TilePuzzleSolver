@@ -14,28 +14,27 @@ public class IDAstar extends FindPath {
      * @return state gaol.
      */
     @Override
-    public state findPath() {
+    public State findPath() {
         place();
-        Hashtable<state, state> open = new Hashtable<state, state>();
-        LinkedList<state> stack = new LinkedList<>();
-
-        state start = new state(initialstate, null, 0, 0, 0, "", "", this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
-        Heuristic(start);
-        double t = start.getWight();
+        Hashtable<State, State> open = new Hashtable<>();
+        LinkedList<State> stack = new LinkedList<>();
+        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        heuristic(start);
+        double t = start.getHeuristic();
         while (t != Double.MAX_VALUE) {
 
             double minf = Double.MAX_VALUE;
             start.setOut(false);
-            //start.TIME_OF_CREATION = 1;
+
             stack.push(start);
             open.put(start, start);
-            System.out.println("s=" + stack.size() + "  o=" + open.size());
-            int c = 1;
+
+
             while (!stack.isEmpty()) {
                 if (withOpen) {
                     System.out.println("open\n" + stack);
                 }
-                state n = stack.pop();
+                State n = stack.pop();
 
 
                 if (n.isOut()) {
@@ -47,25 +46,25 @@ public class IDAstar extends FindPath {
                     if (withOpen) {
                         System.out.println("open\n" + stack);
                     }
-                    Queue<state> opertion = n.order();
+                    Queue<State> opertion = n.getSuccessors();
 
 
                     while (!opertion.isEmpty()) {
 
-                        c++;
-                        state son = opertion.poll();
 
-                        Heuristic(son);
+                        State son = opertion.poll();
 
-                        if (son.getWight() > t) {
+                        heuristic(son);
 
-                            minf = Math.min(son.getWight(), minf);
+                        if (son.getHeuristic() > t) {
+
+                            minf = Math.min(son.getHeuristic(), minf);
 
                             continue;
                         } else if (open.get(son) != null && open.get(son).isOut()) {
                             continue;
                         } else if (open.get(son) != null && !open.get(son).isOut()) {
-                            if (open.get(son).getWight() > son.getWight()) {
+                            if (open.get(son).getHeuristic() > son.getHeuristic()) {
                                 stack.remove(open.get(son));
                                 open.remove(open.get(son), open.get(son));
                             } else {
