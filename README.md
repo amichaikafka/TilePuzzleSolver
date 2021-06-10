@@ -1,6 +1,5 @@
 # TilePuzzleSolver
-* The goal of this program is to solve a Tilepuzzel which is a puzzle n*m with empty spot (one or two) that allwod to move the spot around the empty
-* to the empty one until reaching the goal stat.
+* The goal of this program is to solve a Tilepuzzel which is a puzzle n*m with empty spot (one or two) that allwod to move the spot around the empty to the empty one until reaching the goal state.
 * The program gets a start state and goal and return a way to solve the puzzle using a variety of algorithms including informed algorithms.
 
 ## Program structure
