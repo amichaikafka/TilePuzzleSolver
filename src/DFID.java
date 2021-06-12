@@ -16,17 +16,13 @@ public class DFID extends FindPath {
      */
     @Override
     public State findPath() {
-        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        State start = new PuzzleState(initialstate);
         for (int i = 1; i < Integer.MAX_VALUE; i++) {
             Hashtable<State, State> open = new Hashtable<>();
 
             State res = Limited_DFS(start, i, open);
 
             if (res != cutOff) {
-                if (res != null && res.getPath().length() > 0) {
-                    String str = res.getPath();
-                    res.setPath(str.substring(0, str.length() - 1));
-                }
                 return res;
             }
         }
@@ -42,7 +38,7 @@ public class DFID extends FindPath {
             if (withOpen) {
                 System.out.println("open\n" + open.values());
             }
-            updateEmpty(n.getEmpty());
+
             open.put(n, n);
             Queue<State> opertion = n.getSuccessors();
 

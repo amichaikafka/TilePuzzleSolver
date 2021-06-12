@@ -15,7 +15,7 @@ public class DFBnB extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         LinkedList<State> stack = new LinkedList<>();
-        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        State start = new PuzzleState(initialstate);
         stack.push(start);
         open.put(start, start);
         double t = Double.MAX_VALUE;
@@ -72,11 +72,6 @@ public class DFBnB extends FindPath {
                 }
             }
         }
-        if (result != null) {
-            String str = result.getPath();
-            result.setPath(str.substring(0, str.length() - 1));
-        }
-
 
         return result;
     }

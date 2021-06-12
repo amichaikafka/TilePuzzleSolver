@@ -18,7 +18,7 @@ public interface State {
     /***
      * @return the locations of all the empty spots of this state.
      */
-    public int[] getEmpty();
+    public boolean isTwoEmpty();
     /***
      * @return the id of this state(which is the amount of stats).
      */
@@ -27,11 +27,6 @@ public interface State {
      * @return the path up to this state
      */
     public String getPath();
-    /***
-     * set the path up to this state
-     * @param path path to set
-     */
-    public void setPath(String path);
     /***
      * check if this state is "out" for IDA* and DFBnB.
      * @return

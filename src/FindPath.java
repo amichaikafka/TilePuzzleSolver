@@ -14,10 +14,6 @@ public abstract class FindPath {
     protected String[][] goal;
     protected boolean withTime;
     protected boolean withOpen;
-    protected int x1_empty = -1;
-    protected int y1_empty = -1;
-    protected int x2_empty = -1;
-    protected int y2_empty = -1;
 
     /***
      * constructor
@@ -31,32 +27,8 @@ public abstract class FindPath {
         this.goal = goal;
         this.withTime = withTime;
         this.withOpen = withOpen;
-        firstEmpty(initialstate);
     }
 
-    /***
-     * Updates the empty spot of the initial state we work on.
-     * Note-this function use only once at the beginning.
-     * @param greed
-     */
-    private void firstEmpty(String[][] greed) {
-        int count = 0;
-        for (int i = 0; i < greed.length; i++) {
-            for (int j = 0; j < greed[0].length; j++) {
-
-                if (count == 0 && greed[i][j].equals(EMPTY)) {
-
-                    this.x1_empty = i;
-                    this.y1_empty = j;
-                    count = 1;
-                } else if (count == 1 && greed[i][j].equals(EMPTY)) {
-                    this.x2_empty = i;
-                    this.y2_empty = j;
-                    return;
-                }
-            }
-        }
-    }
 
     /***
      * return if there is a demand to display the time.
@@ -67,16 +39,6 @@ public abstract class FindPath {
         return withTime;
     }
 
-    /***
-     * Updates the empty spot of the  state we work on.(in o(1)).
-     * @param pos-the new empty spot.
-     */
-    protected void updateEmpty(int[] pos) {
-        this.x1_empty = pos[0];
-        this.y1_empty = pos[1];
-        this.x2_empty = pos[2];
-        this.y2_empty = pos[3];
-    }
 
     /**
      * return the Manhattan distance between two point.
@@ -87,12 +49,12 @@ public abstract class FindPath {
      * @return
      */
     private double manhattan(int x1, int y1, int x2, int y2) {
-        int price = 5;
+//        int price = 5;
         double m = (Math.abs(x1 - x2) + Math.abs(y1 - y2));
-        if (x2_empty != -1)
-            price = 3;
+//        if (x2_empty != -1)
+//            price = 3;
 
-        return m * price;
+        return m ;
     }
 
 
@@ -120,6 +82,13 @@ public abstract class FindPath {
             }
         }
         linar = findConflict(curr);
+        if(n.isTwoEmpty()){
+            linar*=3;
+            sum*=3;
+        }else{
+            linar*=5;
+            sum*=5;
+        }
         n.setHeuristic(n.getPrice() + sum + 2 * linar);
     }
 
@@ -175,11 +144,11 @@ public abstract class FindPath {
                 }
             }
         }
-
-        int n = 5;
-        if (x2_empty != -1)
-            n = 3;
-        return n * linar;
+//
+//        int n = 5;
+//        if (x2_empty != -1)
+//            n = 3;
+        return  linar;
     }
 
     /***

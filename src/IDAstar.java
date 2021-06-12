@@ -18,7 +18,7 @@ public class IDAstar extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         LinkedList<State> stack = new LinkedList<>();
-        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        State start = new PuzzleState(initialstate);
         heuristic(start);
         double t = start.getHeuristic();
         while (t != Double.MAX_VALUE) {
@@ -72,8 +72,7 @@ public class IDAstar extends FindPath {
                             }
                         }
                         if (Arrays.deepEquals(son.getGreed(), goal)) {
-                            String str = son.getPath();
-                            son.setPath(str.substring(0, str.length() - 1));
+
                             return son;
                         }
                         stack.push(son);

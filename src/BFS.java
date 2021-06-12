@@ -19,7 +19,7 @@ public class BFS extends FindPath {
         Queue<State> q = new LinkedList<>();
         Hashtable<State, State> open = new Hashtable<>();
         Hashtable<State, State> close = new Hashtable<>();
-        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        State start = new PuzzleState(initialstate);
         q.add(start);
         open.put(start, start);
         if (Arrays.deepEquals(start.getGreed(), goal)) {
@@ -30,10 +30,6 @@ public class BFS extends FindPath {
                 System.out.println("open\n" + q);
             }
             State n = q.poll();
-//            if (Arrays.deepEquals(n.getGreed(), goal)) {
-//                return n;
-//            }
-            updateEmpty(n.getEmpty());
             close.put(n, n);
             Queue<State> opertion = n.getSuccessors();
             while (!opertion.isEmpty()) {
@@ -43,8 +39,7 @@ public class BFS extends FindPath {
                 }
 
                 if (Arrays.deepEquals(son.getGreed(), goal)) {
-                    String str = son.getPath();
-                    son.setPath(str.substring(0, str.length() - 1));
+
                     return son;
                 }
                 q.add(son);

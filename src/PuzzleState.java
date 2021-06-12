@@ -87,10 +87,10 @@ public class PuzzleState implements State,Comparable<State>{
     private String step="";
     private String path="";
     private int level=0;
-    private int x1_empty;
-    private int y1_empty;
-    private int x2_empty;
-    private int y2_empty;
+    private int x1_empty=-1;
+    private int y1_empty=-1;
+    private int x2_empty=-1;
+    private int y2_empty=-1;
     private boolean out = false;
     private Hashtable<Character, Character> isOpposite = new Hashtable<>();
 
@@ -127,17 +127,38 @@ public class PuzzleState implements State,Comparable<State>{
         updateOpposite();
         NUM_OF_STATES++;
         this.id = NUM_OF_STATES;
-//        NUM_OF_STATES++;
     }
-    public PuzzleState(String[][] greed, int x1_empty, int y1_empty, int x2_empty, int y2_empty) {
+    public PuzzleState(String[][] greed) {
         this.greed = greed;
-        this.x1_empty = x1_empty;
-        this.y1_empty = y1_empty;
-        this.x2_empty = x2_empty;
-        this.y2_empty = y2_empty;
+        firstEmpty(greed);
         updateOpposite();
         NUM_OF_STATES++;
         this.id = NUM_OF_STATES;
+
+    }
+
+    /***
+     * Updates the empty spot of the initial state we work on.
+     * Note-this function use only once at  for the first state.
+     * @param greed
+     */
+    private void firstEmpty(String[][] greed) {
+        int count = 0;
+        for (int i = 0; i < greed.length; i++) {
+            for (int j = 0; j < greed[0].length; j++) {
+
+                if (count == 0 && greed[i][j].equals(EMPTY)) {
+
+                    this.x1_empty = i;
+                    this.y1_empty = j;
+                    count = 1;
+                } else if (count == 1 && greed[i][j].equals(EMPTY)) {
+                    this.x2_empty = i;
+                    this.y2_empty = j;
+                    return;
+                }
+            }
+        }
     }
 
     /***
@@ -232,14 +253,6 @@ public class PuzzleState implements State,Comparable<State>{
     }
 
     /***
-     * set the path up to this state
-     * @param path path to set
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /***
      * @return the greed of this state
      */
     public String[][] getGreed() {
@@ -259,8 +272,6 @@ public class PuzzleState implements State,Comparable<State>{
     public int getPrice() {
         return price;
     }
-
-
 
     /***
      *
@@ -291,8 +302,8 @@ public class PuzzleState implements State,Comparable<State>{
      * @return the locations of all the empty spots of this state.
      */
     @Override
-    public int[] getEmpty() {
-        return new int[]{x1_empty, y1_empty, x2_empty, y2_empty};
+    public boolean isTwoEmpty() {
+        return x2_empty!=-1;
 
     }
     /***
@@ -343,7 +354,12 @@ public class PuzzleState implements State,Comparable<State>{
             next[p.getX2()][p.getY2()] = EMPTY;
         }
         String step = calcPath(greed, p);
-        String path = this.path + step + "-";
+        String path;
+        if(!this.path.isEmpty()) {
+             path = this.path + "-" + step;
+        }else{
+            path=step;
+        }
         int w = calcPriceStep(p);
         int price = w + this.price;
         Position _p = checkEmpty(p, next);
@@ -556,6 +572,7 @@ public class PuzzleState implements State,Comparable<State>{
      */
     private String calcPath(String[][] greed, PuzzleState.Position pos) {
         String ans = "";
+
         ans += greed[pos.getX1()][pos.getY1()];
         if (pos.getX2() != -1) {
             ans += "&" + greed[pos.getX2()][pos.getY2()];

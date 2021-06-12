@@ -20,7 +20,7 @@ public class Astar extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         Hashtable<State, State> close = new Hashtable<>();
-        State start = new PuzzleState(initialstate, this.x1_empty, this.y1_empty, this.x2_empty, this.y2_empty);
+        State start = new PuzzleState(initialstate);
 
 
         PriorityQueue<State> pq = new PriorityQueue();
@@ -34,8 +34,6 @@ public class Astar extends FindPath {
 
             State n = pq.poll();
             if (Arrays.deepEquals(goal, n.getGreed())) {
-                String str = n.getPath();
-                n.setPath(str.substring(0, str.length() - 1));
                 return n;
             }
             close.put(n, n);
