@@ -3,8 +3,8 @@ import java.util.*;
  * This class extends FindPath represents implementaion of DFBnB algorithm.
  */
 public class DFBnB extends FindPath {
-    public DFBnB(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
-        super(initialstate, goal, withTime, withOpen);
+    public DFBnB(String[][] initialstate, String[][] goal, boolean withOpen) {
+        super(initialstate, goal, withOpen);
     }
     /***
      * The DFBnB algorithm.
@@ -15,13 +15,13 @@ public class DFBnB extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         LinkedList<State> stack = new LinkedList<>();
-        State start = new PuzzleState(initialstate);
+        State start = new PuzzleState(getInitialstate());
         stack.push(start);
         open.put(start, start);
         double t = Double.MAX_VALUE;
         State result = null;
         while (!stack.isEmpty()) {
-            if (withOpen) {
+            if (isWithOpen()) {
                 System.out.println("open\n" + stack);
             }
             State n = stack.pop();
@@ -56,7 +56,7 @@ public class DFBnB extends FindPath {
                             open.remove(open.get(son), open.get(son));
                             remains.addFirst(son);
                         }
-                    } else if (Arrays.deepEquals(son.getGreed(), goal)) {
+                    } else if (Arrays.deepEquals(son.getGreed(), getGoal())) {
                         t = son.getHeuristic();
                         result = son;
                         N.clear();

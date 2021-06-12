@@ -7,8 +7,8 @@ import java.util.Queue;
  * This class extends FindPath represents implementaion of A* algorithm.
  */
 public class Astar extends FindPath {
-    public Astar(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
-        super(initialstate, goal, withTime, withOpen);
+    public Astar(String[][] initialstate, String[][] goal, boolean withOpen) {
+        super(initialstate, goal, withOpen);
     }
 
     /***
@@ -20,7 +20,7 @@ public class Astar extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         Hashtable<State, State> close = new Hashtable<>();
-        State start = new PuzzleState(initialstate);
+        State start = new PuzzleState(this.getInitialstate());
 
 
         PriorityQueue<State> pq = new PriorityQueue();
@@ -28,12 +28,12 @@ public class Astar extends FindPath {
         pq.add(start);
         open.put(start, start);
         while (!pq.isEmpty()) {
-            if (withOpen) {
+            if (isWithOpen()) {
                 System.out.println("open\n" + pq);
             }
 
             State n = pq.poll();
-            if (Arrays.deepEquals(goal, n.getGreed())) {
+            if (Arrays.deepEquals(getGoal(), n.getGreed())) {
                 return n;
             }
             close.put(n, n);

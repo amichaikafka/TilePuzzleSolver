@@ -6,8 +6,8 @@ import java.util.Queue;
  * This class extends FindPath represents implementaion of IDA* algorithm.
  */
 public class IDAstar extends FindPath {
-    public IDAstar(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
-        super(initialstate, goal, withTime, withOpen);
+    public IDAstar(String[][] initialstate, String[][] goal,boolean withOpen) {
+        super(initialstate, goal, withOpen);
     }
     /***
      * The IDA* algorithm.
@@ -18,7 +18,7 @@ public class IDAstar extends FindPath {
         place();
         Hashtable<State, State> open = new Hashtable<>();
         LinkedList<State> stack = new LinkedList<>();
-        State start = new PuzzleState(initialstate);
+        State start = new PuzzleState(getInitialstate());
         heuristic(start);
         double t = start.getHeuristic();
         while (t != Double.MAX_VALUE) {
@@ -31,7 +31,7 @@ public class IDAstar extends FindPath {
 
 
             while (!stack.isEmpty()) {
-                if (withOpen) {
+                if (isWithOpen()) {
                     System.out.println("open\n" + stack);
                 }
                 State n = stack.pop();
@@ -43,7 +43,7 @@ public class IDAstar extends FindPath {
 
                     n.setOut(true);
                     stack.push(n);
-                    if (withOpen) {
+                    if (isWithOpen()) {
                         System.out.println("open\n" + stack);
                     }
                     Queue<State> opertion = n.getSuccessors();
@@ -71,7 +71,7 @@ public class IDAstar extends FindPath {
                                 continue;
                             }
                         }
-                        if (Arrays.deepEquals(son.getGreed(), goal)) {
+                        if (Arrays.deepEquals(son.getGreed(), getGoal())) {
 
                             return son;
                         }

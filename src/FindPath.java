@@ -8,36 +8,37 @@ import java.util.Hashtable;
  *
  */
 public abstract class FindPath {
-    protected final String EMPTY = "_";
-    protected Hashtable<String, int[]> indexGaol = new Hashtable<>();
-    protected String[][] initialstate;
-    protected String[][] goal;
-    protected boolean withTime;
-    protected boolean withOpen;
+    private final String EMPTY = "_";
+    private Hashtable<String, int[]> indexGaol = new Hashtable<>();
+    private String[][] initialstate;
+    private String[][] goal;
+
+    private boolean withOpen;
 
     /***
      * constructor
      * @param initialstate- the state we start from
      * @param goal- the goal state
-     * @param withTime-if we want to count the time of the solution.
      * @param withOpen-if we want to display the open list in each iteration
      */
-    public FindPath(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
+    public FindPath(String[][] initialstate, String[][] goal,  boolean withOpen) {
         this.initialstate = initialstate;
         this.goal = goal;
-        this.withTime = withTime;
         this.withOpen = withOpen;
     }
 
-
-    /***
-     * return if there is a demand to display the time.
-     * @return
-     */
-
-    public boolean isWithTime() {
-        return withTime;
+    protected String[][] getInitialstate() {
+        return initialstate;
     }
+
+    protected String[][] getGoal() {
+        return goal;
+    }
+
+    protected boolean isWithOpen() {
+        return withOpen;
+    }
+
 
 
     /**
@@ -49,11 +50,7 @@ public abstract class FindPath {
      * @return
      */
     private double manhattan(int x1, int y1, int x2, int y2) {
-//        int price = 5;
         double m = (Math.abs(x1 - x2) + Math.abs(y1 - y2));
-//        if (x2_empty != -1)
-//            price = 3;
-
         return m ;
     }
 
@@ -144,10 +141,7 @@ public abstract class FindPath {
                 }
             }
         }
-//
-//        int n = 5;
-//        if (x2_empty != -1)
-//            n = 3;
+
         return  linar;
     }
 

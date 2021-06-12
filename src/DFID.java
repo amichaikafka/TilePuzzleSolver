@@ -7,8 +7,8 @@ import java.util.Queue;
 public class DFID extends FindPath {
     private final PuzzleState cutOff = new PuzzleState();//cutoff state
 
-    public DFID(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
-        super(initialstate, goal, withTime, withOpen);
+    public DFID(String[][] initialstate, String[][] goal,boolean withOpen) {
+        super(initialstate, goal, withOpen);
     }
     /***
      * The DFID algorithm.
@@ -16,7 +16,7 @@ public class DFID extends FindPath {
      */
     @Override
     public State findPath() {
-        State start = new PuzzleState(initialstate);
+        State start = new PuzzleState(getInitialstate());
         for (int i = 1; i < Integer.MAX_VALUE; i++) {
             Hashtable<State, State> open = new Hashtable<>();
 
@@ -30,12 +30,12 @@ public class DFID extends FindPath {
     }
 
     private State Limited_DFS(State n, int limit, Hashtable<State, State> open) {
-        if (Arrays.deepEquals(n.getGreed(), goal)) {
+        if (Arrays.deepEquals(n.getGreed(), getGoal())) {
             return n;
         } else if (limit ==0) {
             return cutOff;
         } else {
-            if (withOpen) {
+            if (isWithOpen()) {
                 System.out.println("open\n" + open.values());
             }
 

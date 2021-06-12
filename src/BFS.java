@@ -7,8 +7,8 @@ import java.util.Queue;
  */
 public class BFS extends FindPath {
 
-    public BFS(String[][] initialstate, String[][] goal, boolean withTime, boolean withOpen) {
-        super(initialstate, goal, withTime, withOpen);
+    public BFS(String[][] initialstate, String[][] goal, boolean withOpen) {
+        super(initialstate, goal, withOpen);
     }
     /***
      * The BFS algorithm.
@@ -19,14 +19,14 @@ public class BFS extends FindPath {
         Queue<State> q = new LinkedList<>();
         Hashtable<State, State> open = new Hashtable<>();
         Hashtable<State, State> close = new Hashtable<>();
-        State start = new PuzzleState(initialstate);
+        State start = new PuzzleState(getInitialstate());
         q.add(start);
         open.put(start, start);
-        if (Arrays.deepEquals(start.getGreed(), goal)) {
+        if (Arrays.deepEquals(start.getGreed(), getGoal())) {
             return start;
         }
         while (!q.isEmpty()) {
-            if (withOpen) {
+            if (isWithOpen()) {
                 System.out.println("open\n" + q);
             }
             State n = q.poll();
@@ -38,7 +38,7 @@ public class BFS extends FindPath {
                     continue;
                 }
 
-                if (Arrays.deepEquals(son.getGreed(), goal)) {
+                if (Arrays.deepEquals(son.getGreed(), getGoal())) {
 
                     return son;
                 }

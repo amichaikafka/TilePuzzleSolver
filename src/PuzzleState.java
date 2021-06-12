@@ -251,6 +251,13 @@ public class PuzzleState implements State,Comparable<State>{
     public String getPath() {
         return path;
     }
+    /***
+     * set the path up to this state
+     * @param path path to set
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     /***
      * @return the greed of this state

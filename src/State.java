@@ -28,9 +28,15 @@ public interface State {
      */
     public String getPath();
     /***
+     * set the path up to this state
+     * @param path path to set
+     */
+    public void setPath(String path);
+    /***
      * check if this state is "out" for IDA* and DFBnB.
      * @return
      */
+
     public boolean isOut();
     /***
      * Set this state to be out.
@@ -59,6 +65,7 @@ public interface State {
      * @param heuristic heuristic value
      */
     public void setHeuristic(double heuristic);
+
 
 
 }

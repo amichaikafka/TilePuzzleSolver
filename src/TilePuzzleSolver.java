@@ -13,6 +13,7 @@ public class TilePuzzleSolver {
     private FindPath solver;
     private State res;//contain the node with the solution
     private double time;
+    private boolean isWithTime;
 
 
     public TilePuzzleSolver(String puzzleFile) {
@@ -39,7 +40,6 @@ public class TilePuzzleSolver {
             int count=1;
             String algo="";
             String[][] start,goal;
-            boolean time=false;
             boolean open=false;
             int n,m;
             String data="";
@@ -48,7 +48,7 @@ public class TilePuzzleSolver {
                 if(count==1){
                     algo=data;
                 }else if(count==2){
-                    time=data.equals("with time");
+                    this.isWithTime=data.equals("with time");
                 }else if(count==3){
                     open=data.equals("with open");
                 }else if (count==4){
@@ -76,15 +76,15 @@ public class TilePuzzleSolver {
                     myReader.close();
                     switch (algo){
                         case "BFS":
-                            return new BFS(start,goal,time,open);
+                            return new BFS(start,goal,open);
                         case "DFID":
-                            return new DFID(start,goal,time,open);
+                            return new DFID(start,goal,open);
                         case "A*":
-                            return new Astar(start,goal,time,open);
+                            return new Astar(start,goal,open);
                         case "IDA*":
-                            return new IDAstar(start,goal,time,open);
+                            return new IDAstar(start,goal,open);
                         case "DFBnB":
-                            return new DFBnB(start,goal,time,open);
+                            return new DFBnB(start,goal,open);
                     }
 
                 }
@@ -110,7 +110,7 @@ public class TilePuzzleSolver {
             if(res==null){
                 myWriter.append("no path\n");
                 myWriter.append("Num: ").append(String.valueOf(PuzzleState.NUM_OF_STATES)).append("\n");
-                if(solver.isWithTime()){
+                if(isWithTime){
                     myWriter.append("").append(String.valueOf(time)).append(" seconds\n");
                 }
                 myWriter.close();
@@ -120,7 +120,7 @@ public class TilePuzzleSolver {
             myWriter.append("\n");
             myWriter.append("Num: ").append(String.valueOf(res.getId())).append("\n");
             myWriter.append("Cost: ").append(String.valueOf(res.getPrice())).append("\n");
-            if(solver.isWithTime()){
+            if(isWithTime){
                 myWriter.append("").append(String.valueOf(time)).append(" seconds\n");
             }
             myWriter.close();
