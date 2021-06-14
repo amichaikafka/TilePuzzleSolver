@@ -46,8 +46,7 @@ public class Astar extends FindPath {
 
                 if (open.get(son) != null&&close.get(son)!=null) {
                     if (open.get(son).getHeuristic() > son.getHeuristic()) {
-                        open.get(son).setPath(son.getPath());
-                        open.get(son).setPrice(son.getPrice());
+                        open.replace(son,son);
                     }
                 } else{
                     open.put(son, son);
