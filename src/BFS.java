@@ -30,6 +30,7 @@ public class BFS extends FindPath {
                 System.out.println("open\n" + q);
             }
             State n = q.poll();
+            open.remove(n,n);
             close.put(n, n);
             Queue<State> opertion = n.getSuccessors();
             while (!opertion.isEmpty()) {

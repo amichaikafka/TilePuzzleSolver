@@ -33,6 +33,7 @@ public class Astar extends FindPath {
             }
 
             State n = pq.poll();
+            open.remove(n,n);
             if (Arrays.deepEquals(getGoal(), n.getGreed())) {
                 return n;
             }
@@ -43,12 +44,14 @@ public class Astar extends FindPath {
                 heuristic(son);
 
 
-                if (close.get(son) == null && open.get(son) == null) {
+                if (open.get(son) != null&&close.get(son)!=null) {
+                    if (open.get(son).getHeuristic() > son.getHeuristic()) {
+                        open.get(son).setPath(son.getPath());
+                        open.get(son).setPrice(son.getPrice());
+                    }
+                } else{
                     open.put(son, son);
                     pq.add(son);
-                } else if (open.get(son).getHeuristic() > son.getHeuristic()) {
-                    open.get(son).setPrice(son.getPrice());
-                    open.get(son).setPath(son.getPath());
                 }
 
             }

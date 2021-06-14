@@ -3,202 +3,58 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="128.49848828420266" y="310.0">DFID</node>
-    <node x="412.1915343915344" y="110.0">FindPath</node>
-    <node x="537.4984882842027" y="310.0">IDAstar</node>
-    <node x="0.0" y="0.0">PuzzleState.Position</node>
-    <node x="29.33333333333337" y="110.0">PuzzleState</node>
-    <node x="288.23182161753596" y="0.0">State</node>
-    <node x="380.84780801209376" y="410.0">TilePuzzleSolver</node>
-    <node x="228.49848828420266" y="310.0">Astar</node>
-    <node x="428.49848828420266" y="310.0">DFBnB</node>
-    <node x="336.49848828420266" y="310.0">BFS</node>
-    <node x="432.84780801209376" y="490.0">Ex1</node>
+    <node x="300.0" y="315.0">IDAstar</node>
+    <node x="180.0" y="235.0">FindPath</node>
+    <node x="92.0" y="315.0">DFID</node>
+    <node x="0.0" y="80.0">PuzzleState</node>
+    <node x="12.0" y="160.0">PuzzleState.Position</node>
+    <node x="0.0" y="390.0">TilePuzzleSolver</node>
+    <node x="24.0" y="0.0">State</node>
+    <node x="424.0" y="315.0">Astar</node>
+    <node x="192.0" y="315.0">DFBnB</node>
+    <node x="0.0" y="315.0">BFS</node>
+    <node x="221.0" y="390.0">Ex1</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="DFID" target="PuzzleState">
-      <point x="-16.0" y="-15.0" />
-      <point x="152.49848828420266" y="270.0" />
-      <point x="77.90476190476193" y="270.0" />
-      <point x="-19.428571428571445" y="15.0" />
-    </edge>
-    <edge source="IDAstar" target="State">
-      <point x="39.0" y="-15.0" />
-      <point x="628.4984882842027" y="60.0" />
-      <point x="363.031821617536" y="60.0" />
-      <point x="30.80000000000001" y="15.0" />
-    </edge>
-    <edge source="Astar" target="State">
-      <point x="-11.0" y="-15.0" />
-      <point x="261.49848828420266" y="220.0" />
-      <point x="268.83333333333337" y="220.0" />
-      <point x="268.83333333333337" y="90.0" />
-      <point x="327.831821617536" y="90.0" />
-      <point x="-4.400000000000034" y="15.0" />
-    </edge>
-    <edge source="DFBnB" target="PuzzleState">
-      <point x="-33.0" y="-15.0" />
-      <point x="439.49848828420266" y="200.0" />
-      <point x="136.19047619047626" y="200.0" />
-      <point x="38.85714285714289" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="State">
-      <point x="78.22222222222224" y="-15.0" />
-      <point x="547.0700302343159" y="390.0" />
-      <point x="662.9984882842026" y="390.0" />
-      <point x="662.9984882842026" y="50.0" />
-      <point x="371.831821617536" y="50.0" />
-      <point x="39.599999999999966" y="15.0" />
-    </edge>
     <edge source="PuzzleState" target="State">
-      <point x="56.66666666666663" y="-15.0" />
-      <point x="154.0" y="70.0" />
-      <point x="310.23182161753596" y="70.0" />
-      <point x="-22.0" y="15.0" />
-    </edge>
-    <edge source="Ex1" target="TilePuzzleSolver">
       <point x="0.0" y="-15.0" />
       <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="Astar" target="PuzzleState">
-      <point x="-33.0" y="-15.0" />
-      <point x="239.49848828420266" y="220.0" />
-      <point x="97.33333333333337" y="220.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="PuzzleState" target="PuzzleState.Position">
-      <point x="-34.0" y="-15.0" />
-      <point x="63.33333333333337" y="90.0" />
-      <point x="56.0" y="90.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="DFID">
-      <point x="-58.666666666666686" y="-15.0" />
-      <point x="410.1811413454271" y="380.0" />
-      <point x="168.49848828420266" y="380.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="DFID" target="State">
-      <point x="0.0" y="-15.0" />
-      <point x="168.49848828420266" y="290.0" />
-      <point x="175.8333333333334" y="290.0" />
-      <point x="175.8333333333334" y="80.0" />
-      <point x="319.031821617536" y="80.0" />
-      <point x="-13.199999999999989" y="15.0" />
-    </edge>
-    <edge source="FindPath" target="State">
-      <point x="0.0" y="-15.0" />
-      <point x="468.1915343915344" y="80.0" />
-      <point x="345.431821617536" y="80.0" />
-      <point x="13.199999999999989" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="FindPath">
-      <point x="58.6666666666667" y="-15.0" />
-      <point x="527.5144746787605" y="380.0" />
-      <point x="651.9984882842026" y="380.0" />
-      <point x="651.9984882842026" y="160.0" />
-      <point x="519.5248677248678" y="160.0" />
-      <point x="51.33333333333337" y="15.0" />
     </edge>
     <edge source="BFS" target="FindPath">
-      <point x="9.0" y="-15.0" />
-      <point x="381.49848828420266" y="270.0" />
-      <point x="454.1915343915344" y="270.0" />
-      <point x="-14.0" y="15.0" />
-    </edge>
-    <edge source="DFBnB" target="State">
-      <point x="33.0" y="-15.0" />
-      <point x="505.49848828420266" y="290.0" />
-      <point x="534.6915343915343" y="290.0" />
-      <point x="534.6915343915343" y="70.0" />
-      <point x="354.23182161753596" y="70.0" />
-      <point x="22.0" y="15.0" />
+      <point x="0.0" y="-15.0" />
+      <point x="36.0" y="285.0" />
+      <point x="191.2" y="285.0" />
+      <point x="-44.80000000000001" y="15.0" />
     </edge>
     <edge source="DFID" target="FindPath">
-      <point x="32.0" y="-15.0" />
-      <point x="200.49848828420266" y="240.0" />
-      <point x="426.1915343915344" y="240.0" />
-      <point x="-42.0" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="DFBnB">
       <point x="0.0" y="-15.0" />
-      <point x="468.84780801209376" y="390.0" />
-      <point x="472.49848828420266" y="390.0" />
-      <point x="0.0" y="15.0" />
+      <point x="132.0" y="295.0" />
+      <point x="213.6" y="295.0" />
+      <point x="-22.400000000000006" y="15.0" />
     </edge>
     <edge source="PuzzleState.Position" target="PuzzleState">
-      <point x="37.33333333333337" y="15.0" />
-      <point x="93.33333333333337" y="90.0" />
-      <point x="86.0" y="90.0" />
-      <point x="-11.333333333333371" y="-15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="BFS">
-      <point x="-19.555555555555543" y="-15.0" />
-      <point x="449.2922524565382" y="360.0" />
-      <point x="372.49848828420266" y="360.0" />
+      <point x="0.0" y="-15.0" />
       <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="BFS" target="State">
-      <point x="-9.0" y="-15.0" />
-      <point x="363.49848828420266" y="220.0" />
-      <point x="352.512962962963" y="220.0" />
-      <point x="352.512962962963" y="90.0" />
-      <point x="336.63182161753593" y="90.0" />
-      <point x="4.399999999999977" y="15.0" />
     </edge>
     <edge source="IDAstar" target="FindPath">
-      <point x="13.0" y="-15.0" />
-      <point x="602.4984882842027" y="170.0" />
-      <point x="510.19153439153445" y="170.0" />
-      <point x="42.00000000000003" y="15.0" />
+      <point x="0.0" y="-15.0" />
+      <point x="352.0" y="295.0" />
+      <point x="258.4" y="295.0" />
+      <point x="22.399999999999977" y="15.0" />
     </edge>
     <edge source="DFBnB" target="FindPath">
-      <point x="-11.0" y="-15.0" />
-      <point x="461.49848828420266" y="290.0" />
-      <point x="472.8582010582011" y="290.0" />
-      <point x="4.666666666666686" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="Astar">
-      <point x="-39.111111111111114" y="-15.0" />
-      <point x="429.7366969009826" y="370.0" />
-      <point x="272.49848828420266" y="370.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="IDAstar" target="PuzzleState">
-      <point x="-39.0" y="-15.0" />
-      <point x="550.4984882842027" y="190.0" />
-      <point x="155.6190476190477" y="190.0" />
-      <point x="58.285714285714334" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="PuzzleState">
-      <point x="-78.22222222222223" y="-15.0" />
-      <point x="390.62558578987154" y="390.0" />
-      <point x="82.19047619047626" y="390.0" />
-      <point x="82.19047619047626" y="290.0" />
-      <point x="39.04761904761915" y="290.0" />
-      <point x="-58.28571428571422" y="15.0" />
-    </edge>
-    <edge source="BFS" target="PuzzleState">
-      <point x="-27.0" y="-15.0" />
-      <point x="345.49848828420266" y="210.0" />
-      <point x="116.76190476190482" y="210.0" />
-      <point x="19.428571428571445" y="15.0" />
-    </edge>
-    <edge source="TilePuzzleSolver" target="IDAstar">
-      <point x="39.111111111111114" y="-15.0" />
-      <point x="507.95891912320485" y="370.0" />
-      <point x="589.4984882842027" y="370.0" />
+      <point x="0.0" y="-15.0" />
       <point x="0.0" y="15.0" />
     </edge>
     <edge source="Astar" target="FindPath">
-      <point x="11.0" y="-15.0" />
-      <point x="283.49848828420266" y="250.0" />
-      <point x="435.52486772486776" y="250.0" />
-      <point x="-32.66666666666666" y="15.0" />
+      <point x="0.0" y="-15.0" />
+      <point x="468.0" y="285.0" />
+      <point x="280.8" y="285.0" />
+      <point x="44.80000000000001" y="15.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.2000000000000002" x="524.7142857142857" y="267.1948051948051" />
+  <settings layout="Hierarchic Group" zoom="0.8" x="579.0476190476187" y="239.4999999999999" />
   <SelectedNodes>
     <node>TilePuzzleSolver</node>
   </SelectedNodes>
