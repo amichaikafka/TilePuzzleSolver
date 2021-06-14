@@ -52,7 +52,6 @@ public class DFID extends FindPath {
                         isCutOff = true;
                     } else if (res != null) {
 
-
                         return res;
                     }
                 }

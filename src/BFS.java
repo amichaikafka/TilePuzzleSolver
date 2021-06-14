@@ -40,7 +40,6 @@ public class BFS extends FindPath {
                 }
 
                 if (Arrays.deepEquals(son.getGreed(), getGoal())) {
-
                     return son;
                 }
                 q.add(son);

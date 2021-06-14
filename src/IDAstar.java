@@ -22,7 +22,7 @@ public class IDAstar extends FindPath {
         heuristic(start);
         double t = start.getHeuristic();
         while (t != Double.MAX_VALUE) {
-
+            stack.clear();
             double minf = Double.MAX_VALUE;
             start.setOut(false);
 
@@ -47,19 +47,11 @@ public class IDAstar extends FindPath {
                         System.out.println("open\n" + stack);
                     }
                     Queue<State> opertion = n.getSuccessors();
-
-
                     while (!opertion.isEmpty()) {
-
-
                         State son = opertion.poll();
-
                         heuristic(son);
-
                         if (son.getHeuristic() > t) {
-
                             minf = Math.min(son.getHeuristic(), minf);
-
                             continue;
                         } else if (open.get(son) != null && open.get(son).isOut()) {
                             continue;
