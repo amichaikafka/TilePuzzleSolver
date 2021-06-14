@@ -149,7 +149,7 @@ public abstract class FindPath {
      * Make a map that contain for each string in the gaol its location,
      * for support o(1) time when we need it in the Heuristic function.
      */
-    protected void place() {
+    protected void makeGoalMap() {
         for (int i = 0; i < goal.length; i++) {
             for (int j = 0; j < goal[0].length; j++) {
                 indexGaol.put(goal[i][j], new int[]{i, j});

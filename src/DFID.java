@@ -19,7 +19,6 @@ public class DFID extends FindPath {
         State start = new PuzzleState(getInitialstate());
         for (int i = 1; i < Integer.MAX_VALUE; i++) {
             Hashtable<State, State> open = new Hashtable<>();
-
             State res = Limited_DFS(start, i, open);
 
             if (res != cutOff) {

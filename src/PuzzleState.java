@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PuzzleState implements State,Comparable<State>{
+public class PuzzleState implements State, Comparable<State> {
 
 
     /***
@@ -80,17 +80,17 @@ public class PuzzleState implements State,Comparable<State>{
     private final String EMPTY = "_";
     public static int NUM_OF_STATES = 0;
     private String[][] greed;
-    private State father=null;
+    private State father = null;
     private int id;
-    private int price=0;
-    private double heuristic=0;
-    private String step="";
-    private String path="";
-    private int level=0;
-    private int x1_empty=-1;
-    private int y1_empty=-1;
-    private int x2_empty=-1;
-    private int y2_empty=-1;
+    private int price = 0;
+    private double heuristic = 0;
+    private String step = "";
+    private String path = "";
+    private int level = 0;
+    private int x1_empty = -1;
+    private int y1_empty = -1;
+    private int x2_empty = -1;
+    private int y2_empty = -1;
     private boolean out = false;
     private Hashtable<Character, Character> isOpposite = new Hashtable<>();
 
@@ -128,6 +128,7 @@ public class PuzzleState implements State,Comparable<State>{
         NUM_OF_STATES++;
         this.id = NUM_OF_STATES;
     }
+
     public PuzzleState(String[][] greed) {
         this.greed = greed;
         firstEmpty(greed);
@@ -165,7 +166,7 @@ public class PuzzleState implements State,Comparable<State>{
      * Update the opposite map to get the opposite direction
      * using to filter unnecessary state.
      */
-    private void updateOpposite(){
+    private void updateOpposite() {
         isOpposite.put('L', 'R');
         isOpposite.put('U', 'D');
         isOpposite.put('R', 'L');
@@ -238,6 +239,7 @@ public class PuzzleState implements State,Comparable<State>{
     public int hashCode() {
         return Arrays.deepHashCode(greed);
     }
+
     /***
      * @return the father state of to this state
      */
@@ -251,6 +253,7 @@ public class PuzzleState implements State,Comparable<State>{
     public String getPath() {
         return path;
     }
+
     /***
      * set the path up to this state
      * @param path path to set
@@ -310,9 +313,10 @@ public class PuzzleState implements State,Comparable<State>{
      */
     @Override
     public boolean isTwoEmpty() {
-        return x2_empty!=-1;
+        return x2_empty != -1;
 
     }
+
     /***
      * @return deep copy of this greed.
      */
@@ -326,7 +330,6 @@ public class PuzzleState implements State,Comparable<State>{
         }
         return res;
     }
-
 
 
     /***
@@ -343,15 +346,18 @@ public class PuzzleState implements State,Comparable<State>{
         } else if (p.getX2() == -1 && !canMoveOne(p.getX1(), p.getY1(), p.getDir())) {
             return;
         }
-
+        if (father == null && !checkIfEmpty(p)) {
+            return;
+        }
         if (father != null && !isNotFather(p)) {
             return;
         }
+
         String[][] next = copyGreed();
 
-        if(isTheSecond){
+        if (isTheSecond) {
             next[x2_empty][y2_empty] = next[p.getX1()][p.getY1()];
-        }else {
+        } else {
             next[x1_empty][y1_empty] = next[p.getX1()][p.getY1()];
         }
         next[p.getX1()][p.getY1()] = EMPTY;
@@ -362,10 +368,10 @@ public class PuzzleState implements State,Comparable<State>{
         }
         String step = calcPath(greed, p);
         String path;
-        if(!this.path.isEmpty()) {
-             path = this.path + "-" + step;
-        }else{
-            path=step;
+        if (!this.path.isEmpty()) {
+            path = this.path + "-" + step;
+        } else {
+            path = step;
         }
         int w = calcPriceStep(p);
         int price = w + this.price;
@@ -387,7 +393,7 @@ public class PuzzleState implements State,Comparable<State>{
         } else {
             p = new Position(x2_empty, y2_empty - 1, -1, -1, 'R');
         }
-        swapAndStore(successors, p,isTheSecond);
+        swapAndStore(successors, p, isTheSecond);
 
     }
 
@@ -397,8 +403,9 @@ public class PuzzleState implements State,Comparable<State>{
      */
     private void twoRight(Queue<State> successors) {
         Position p = new Position(x1_empty, y1_empty - 1, x2_empty, y2_empty - 1, 'R');
-        swapAndStore(successors, p,false);
+        swapAndStore(successors, p, false);
     }
+
     /***
      * Create position to move left and send in to swapAndStore
      * @param successors-successors queue
@@ -411,16 +418,18 @@ public class PuzzleState implements State,Comparable<State>{
         } else {
             p = new Position(x2_empty, y2_empty + 1, -1, -1, 'L');
         }
-        swapAndStore(successors, p,isTheSecond);
+        swapAndStore(successors, p, isTheSecond);
     }
+
     /***
      * Create position of two spot to move left send in to swapAndStore.
      * @param successors-successors queue
      */
     private void twoLeft(Queue<State> successors) {
         Position p = new Position(x1_empty, y1_empty + 1, x2_empty, y2_empty + 1, 'L');
-        swapAndStore(successors, p,false);
+        swapAndStore(successors, p, false);
     }
+
     /***
      * Create position to move down and send in to swapAndStore
      * @param successors-successors queue
@@ -433,16 +442,18 @@ public class PuzzleState implements State,Comparable<State>{
         } else {
             p = new Position(x2_empty - 1, y2_empty, -1, -1, 'D');
         }
-        swapAndStore(successors, p,isTheSecond);
+        swapAndStore(successors, p, isTheSecond);
     }
+
     /***
      * Create position of two spot to move down send in to swapAndStore.
      * @param successors-successors queue
      */
     private void twoDown(Queue<State> successors) {
         Position p = new Position(x1_empty - 1, y1_empty, x2_empty - 1, y2_empty, 'D');
-        swapAndStore(successors, p,false);
+        swapAndStore(successors, p, false);
     }
+
     /***
      * Create position to move up and send in to swapAndStore
      * @param successors-successors queue
@@ -455,15 +466,16 @@ public class PuzzleState implements State,Comparable<State>{
         } else {
             p = new Position(x2_empty + 1, y2_empty, -1, -1, 'U');
         }
-        swapAndStore(successors, p,isTheSecond);
+        swapAndStore(successors, p, isTheSecond);
     }
+
     /***
      * Create position of two spot to move up send in to swapAndStore.
      * @param successors-successors queue
      */
     private void twoUp(Queue<State> successors) {
         Position p = new Position(x1_empty + 1, y1_empty, x2_empty + 1, y2_empty, 'U');
-        swapAndStore(successors, p,false);
+        swapAndStore(successors, p, false);
     }
 
     /***
@@ -509,27 +521,39 @@ public class PuzzleState implements State,Comparable<State>{
     private boolean canMoveOne(int x, int y, char dirction) {
         switch (dirction) {
             case 'L':
-                if (y == 0||y>=greed[0].length ) {
+                if (y == 0 || y >= greed[0].length) {
                     return false;
                 }
                 break;
             case 'U':
-                if (x == 0||x>=greed.length) {
+                if (x == 0 || x >= greed.length) {
                     return false;
                 }
                 break;
             case 'R':
-                if (y == greed[0].length - 1||y<0) {
+                if (y == greed[0].length - 1 || y < 0) {
                     return false;
                 }
                 break;
             case 'D':
-                if (x == greed.length - 1||x<0) {
+                if (x == greed.length - 1 || x < 0) {
                     return false;
                 }
                 break;
         }
         return true;
+    }
+
+    /***
+     * check if a given position us an empty spot
+     * @param p
+     * @return
+     */
+    private boolean checkIfEmpty(Position p) {
+        if (p.getX2() != -1) {
+            return !((greed[p.getX1()][p.getY1()].equals(EMPTY)) || (greed[p.getX2()][p.getY2()].equals(EMPTY)));
+        }
+        return !(greed[p.getX1()][p.getY1()].equals(EMPTY));
     }
 
     /***
@@ -542,6 +566,7 @@ public class PuzzleState implements State,Comparable<State>{
         twoRight(successors);
         twoDown(successors);
     }
+
     /***
      * This function send the successors queue to the functions that move one spot.
      * @param successors-successors queue
@@ -639,6 +664,7 @@ public class PuzzleState implements State,Comparable<State>{
         return ans;
 
     }
+
     @Override
     public int compareTo(State o) {
         if (o.getHeuristic() == this.getHeuristic()) {
@@ -647,6 +673,7 @@ public class PuzzleState implements State,Comparable<State>{
         return Double.compare(this.getHeuristic(), o.getHeuristic());
 
     }
+
     /***
      * toString method.
      * @return

@@ -17,7 +17,7 @@ public class Astar extends FindPath {
      */
     @Override
     public State findPath() {
-        place();
+        makeGoalMap();
         Hashtable<State, State> open = new Hashtable<>();
         Hashtable<State, State> close = new Hashtable<>();
         State start = new PuzzleState(this.getInitialstate());

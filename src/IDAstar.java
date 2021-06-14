@@ -15,7 +15,7 @@ public class IDAstar extends FindPath {
      */
     @Override
     public State findPath() {
-        place();
+        makeGoalMap();
         Hashtable<State, State> open = new Hashtable<>();
         LinkedList<State> stack = new LinkedList<>();
         State start = new PuzzleState(getInitialstate());
